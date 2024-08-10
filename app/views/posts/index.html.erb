@@ -1,2 +1,12 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<h2>つぶやき一覧</h2>
+<table>
+    <tr>
+        <th>内容</th>
+    <tr>
+    
+    <tr>
+    <% @posts.each do |post| %>
+        <td><%= post.content %></td>
+    <% end %>
+    </tr>
+</table>
