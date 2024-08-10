@@ -1,4 +1,5 @@
 <h2>つぶやき一覧</h2>
+<%= notice %>
 <table>
     <tr>
         <th>内容</th>
@@ -7,6 +8,8 @@
     <tr>
     <% @posts.each do |post| %>
         <td><%= post.content %></td>
+        <td><%= link_to 'つぶやきの編集',edit_post_path(post.id) %></td>
+        <td><%= link_to 'つぶやきを削除する',blog_path(post.id),data: {turbo_method: :delete,turbo_confirm: "Are you sure?"} %></td>
     <% end %>
     </tr>
 </table>

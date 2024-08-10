@@ -12,7 +12,7 @@ class PostsController < ApplicationController
       if @post.save
           redirect_to posts_path,notice: 'つぶやきを投稿しました'
       else
-          renderf :new
+          renderf :new, status: :unprocessable_entity
       end
   end
 
@@ -25,8 +25,14 @@ class PostsController < ApplicationController
       if @post.seave(post_params)
           redirect_to posts_path,notice: 'つぶやきを編集しました'
       else
-          render :edit
+          render :edit, status: :unprocessable_entity
       end
+  end
+  
+  def destroy
+      @post = Post.find(params[:id])
+      @post.destroy
+      redirect_to posts_path,notice: 'つぶやきを削除しました'
   end
   
   
