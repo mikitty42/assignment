@@ -9,10 +9,14 @@ class PostsController < ApplicationController
   
   def create
       @post = Post.new(post_params)
-      if @post.save
-          redirect_to posts_path,notice: 'つぶやきを投稿しました'
+      if params[:back]
+          render :new, status: :unprocessable_entity
       else
-          renderf :new, status: :unprocessable_entity
+          if @post.save
+              redirect_to posts_path,notice: 'つぶやきを投稿しました'
+          else
+              render :new, status: :unprocessable_entity
+          end
       end
   end
 
@@ -22,10 +26,10 @@ class PostsController < ApplicationController
   
   def update
       @post = Post.find(params[:id])
-      if @post.seave(post_params)
+      if @post.update(post_params)
           redirect_to posts_path,notice: 'つぶやきを編集しました'
       else
-          render :edit, status: :unprocessable_entity
+          render :edit
       end
   end
   
@@ -33,6 +37,11 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
       @post.destroy
       redirect_to posts_path,notice: 'つぶやきを削除しました'
+  end
+  
+  def confirm
+      @post = Post.new(post_params)
+      render :new if @post.invalid?
   end
   
   
